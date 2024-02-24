@@ -45,7 +45,7 @@ export const App = () => {
   
         const totalPages = Math.floor(data.data.total / 12);
   
-        setCollection((prev) => (prev ? [...prev, ...newCollection] : newCollection))
+        setCollection((prev) => ([...prev, ...newCollection]))
         setTotalPages(totalPages)
       } catch (error) {
         setError(error)
@@ -68,9 +68,13 @@ export const App = () => {
     setTotalPages(0);
   };
 
-  const toggleModal = largeImageURL => {
-    setShowModal(({showModal}) => !showModal)
+  const openModal = largeImageURL => {
+    setShowModal(true)
     setLargeImageURL(largeImageURL)
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   const onLoadMore = () => {
@@ -82,7 +86,7 @@ export const App = () => {
       <SearchBar onSubmit={onSubmit} />
 
       {collection.length !== 0 && (
-        <ImageGallery collection={collection} showModal={toggleModal} />
+        <ImageGallery collection={collection} showModal={openModal} />
       )}
 
       {collection.length > 0 && page <= totalPages && (
@@ -101,7 +105,7 @@ export const App = () => {
       {error && <Error>Oops.., error: {error}</Error>}
 
       {showModal && (
-        <Modal largeImageURL={largeImageURL} onClose={toggleModal} />
+        <Modal largeImageURL={largeImageURL} onClose={closeModal} />
       )}
     </Containers>
   );

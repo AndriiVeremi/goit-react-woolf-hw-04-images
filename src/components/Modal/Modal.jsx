@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Overlay, ModalImg } from './Modal.styled';
 
 export const Modal = ({ onClose, largeImageURL }) => {
+
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
@@ -14,6 +15,7 @@ export const Modal = ({ onClose, largeImageURL }) => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
+    
   }, [onClose]);
 
   const handleBackdropClick = e => {
